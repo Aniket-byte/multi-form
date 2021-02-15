@@ -1,0 +1,166 @@
+<div class="p-4">
+  <mat-card class="bg-light" *ngIf="displayData; else noData">
+    <mat-card-title class="text-center my-4"> Your Resume </mat-card-title>
+    <mat-card-content *ngIf="displayData['step-1']">
+      <div class="d-flex justify-content-center my-2">
+        <div
+          class="profile-pic"
+          [ngStyle]="{ 'background-image': getImageUrl() }"
+        ></div>
+      </div>
+      <mat-card>
+        <div class="bg-dark rounded text-white p-2">
+          <div>Personal details</div>
+        </div>
+        <mat-card-content class="p-2">
+          <div>
+            <span style="font-weight: bold">Name</span> :
+            {{ displayData["step-1"].name.firstName }}
+            {{ displayData["step-1"].name.lastName }}
+          </div>
+          <div>
+            <span style="font-weight: bold">Father's Name</span> :
+            {{ displayData["step-1"].fatherName.firstName }}
+            {{ displayData["step-1"].fatherName.lastName }}
+          </div>
+          <div>
+            <span style="font-weight: bold">Mother's Name</span> :
+            {{ displayData["step-1"].motherName.firstName }}
+            {{ displayData["step-1"].motherName.lastName }}
+          </div>
+          <div>
+            <span style="font-weight: bold">Gender</span> :
+            {{ displayData["step-1"].gender }}
+          </div>
+          <div>
+            <span style="font-weight: bold">Email</span> :
+            {{ displayData["step-1"].email }}
+          </div>
+          <div>
+            <span style="font-weight: bold">Phone</span> : +91
+            {{ displayData["step-1"].phone }}
+          </div>
+          <div>
+            <span style="font-weight: bold">Date Of Birth</span> : 14/03/1999
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+    <mat-card-content *ngIf="displayData['step-2']">
+      <mat-card>
+        <div class="bg-dark rounded text-white p-2">
+          <div>Address</div>
+        </div>
+        <mat-card-content class="p-2">
+          <div>
+            <span style="font-weight: bold">Permanent Address</span>
+            : {{ displayData["step-2"].pAddress.line1 }}
+            {{ displayData["step-2"].pAddress.line2 }}
+            {{ displayData["step-2"].pAddress.area }}
+            {{ displayData["step-2"].pAddress.city }}
+            {{ displayData["step-2"].pAddress.state }}
+            {{ displayData["step-2"].pAddress.pincode }}
+          </div>
+          <div>
+            <span style="font-weight: bold">Current Address</span> :
+            {{ displayData["step-2"].cAddress.line1 }}
+            {{ displayData["step-2"].cAddress.line2 }}
+            {{ displayData["step-2"].cAddress.area }}
+            {{ displayData["step-2"].cAddress.city }}
+            {{ displayData["step-2"].cAddress.state }}
+            {{ displayData["step-2"].cAddress.pincode }}
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+    <mat-card-content *ngIf="displayData['step-3']?.internships.length">
+      <mat-card>
+        <div class="bg-dark rounded text-white p-2">
+          <div>Internships</div>
+        </div>
+        <mat-card-content class="p-2">
+          <mat-card
+            class="m-2"
+            *ngFor="
+              let item of displayData['step-3'].internships;
+              let i = index
+            "
+          >
+            <mat-card-title>{{ item.company }}</mat-card-title>
+
+            <mat-card-content>
+              <div class="d-flex">
+                <mat-card-subtitle class="mb-0"
+                  >Duration of internship :
+                </mat-card-subtitle>
+                <div class="text-primary">{{ item.yearOfWork }} month(s)</div>
+              </div>
+              <div class="d-flex">
+                <mat-card-subtitle class="mb-0"
+                  >Position in the organization :
+                </mat-card-subtitle>
+                <div class="text-primary">{{ item.position }}</div>
+              </div>
+              <div class="d-flex">
+                <mat-card-subtitle class="mb-0"
+                  >Description :
+                </mat-card-subtitle>
+                <div class="text-primary">{{ item.description }}</div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+    <mat-card-content *ngIf="displayData['step-3']?.projects.length">
+      <mat-card>
+        <div class="bg-dark rounded text-white p-2">
+          <div>Projects</div>
+        </div>
+        <mat-card-content class="p-2">
+          <mat-card
+            class="m-2"
+            *ngFor="let item of displayData['step-3'].projects; let i = index"
+          >
+            <mat-card-title>{{ item.name }}</mat-card-title>
+
+            <mat-card-content>
+              <div class="d-flex">
+                <mat-card-subtitle class="mb-0"
+                  >Mentor's name :
+                </mat-card-subtitle>
+                <div class="text-primary">{{ item.mentor }} month(s)</div>
+              </div>
+              <div class="d-flex">
+                <mat-card-subtitle class="mb-0"
+                  >No. of members :
+                </mat-card-subtitle>
+                <div class="text-primary">{{ item.members }}</div>
+              </div>
+              <div class="d-flex">
+                <mat-card-subtitle class="mb-0"
+                  >Description :
+                </mat-card-subtitle>
+                <div class="text-primary">{{ item.description }}</div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+  <div class="text-center mt-2" *ngIf="allDone()">
+    <mat-checkbox color="primary" style="width: 100%" (change)="onAggree()"
+      >I thereby declare that the above information in correct</mat-checkbox
+    >
+    <button [disabled]="!aggreed" class="my-2" mat-raised-button color="warn">
+      Submit
+    </button>
+  </div>
+</div>
+
+<ng-template #noData>
+  <div class="text-center p-2 text-secondary">
+    Fill out the fields to generate resume
+  </div>
+</ng-template>

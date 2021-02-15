@@ -1,0 +1,219 @@
+<div class="p-4">
+  <mat-card class="bg-light">
+    <div class="container">
+      <form [formGroup]="formGrp" (ngSubmit)="onSubmit()">
+        <mat-card-content class="py-4">
+          <h1>Name</h1>
+          <div class="row" formGroupName="name">
+            <div class="col-md-6">
+              <mat-form-field style="width: 100%">
+                <input
+                  formControlName="firstName"
+                  matInput
+                  placeholder="First name"
+                />
+                <mat-error
+                  *ngIf="formGrp.get('name.firstName').hasError('required')"
+                  >This field is required</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field style="width: 100%">
+                <input
+                  formControlName="lastName"
+                  matInput
+                  placeholder="Last name"
+                />
+                <mat-error
+                  *ngIf="formGrp.get('name.lastName').hasError('required')"
+                  >This field is required</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-content class="pb-3">
+          <h1>Father's Name</h1>
+          <div class="row" formGroupName="fatherName">
+            <div class="col-md-6">
+              <mat-form-field style="width: 100%">
+                <input
+                  matInput
+                  formControlName="firstName"
+                  placeholder="First name"
+                />
+                <mat-error
+                  *ngIf="
+                    formGrp.get('fatherName.firstName').hasError('required')
+                  "
+                  >This field is required</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field style="width: 100%">
+                <input
+                  matInput
+                  formControlName="lastName"
+                  placeholder="Last name"
+                />
+                <mat-error
+                  *ngIf="
+                    formGrp.get('fatherName.lastName').hasError('required')
+                  "
+                  >This field is required</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-content class="pb-3">
+          <h1>Mother's Name</h1>
+          <div class="row" formGroupName="motherName">
+            <div class="col-md-6">
+              <mat-form-field style="width: 100%">
+                <input
+                  matInput
+                  formControlName="firstName"
+                  placeholder="First name"
+                />
+                <mat-error
+                  *ngIf="
+                    formGrp.get('motherName.firstName').hasError('required')
+                  "
+                  >This field is required</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field style="width: 100%">
+                <input
+                  matInput
+                  formControlName="lastName"
+                  placeholder="Last name"
+                />
+                <mat-error
+                  *ngIf="
+                    formGrp.get('motherName.lastName').hasError('required')
+                  "
+                  >This field is required</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-content class="pb-3">
+          <h1>Contact information</h1>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field style="width: 100%">
+                <input
+                  formControlName="email"
+                  matInput
+                  placeholder="Enter email id"
+                />
+                <mat-error *ngIf="formGrp.get('email').hasError('required')"
+                  >This field is required</mat-error
+                >
+                <mat-error *ngIf="formGrp.get('email').hasError('email')"
+                  >Invalid email</mat-error
+                >
+                <mat-hint align="end"
+                  >We'll not share this email with anyone</mat-hint
+                >
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field style="width: 100%">
+                <input
+                  formControlName="phone"
+                  matInput
+                  placeholder="Enter phone number"
+                />
+                <mat-error *ngIf="formGrp.get('phone').hasError('required')"
+                  >This field is required</mat-error
+                >
+                <mat-error
+                  *ngIf="
+                    formGrp.get('phone').hasError('invalidPhone') &&
+                    !this.formGrp.get('phone').hasError('required')
+                  "
+                  >Invalid phone number</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-content>
+          <mat-form-field appearance="fill" class="mb-1">
+            <mat-label>Choose a date</mat-label>
+            <input
+              [max]="date"
+              formControlName="dob"
+              matInput
+              [matDatepicker]="picker"
+            />
+            <mat-error
+              *ngIf="
+                formGrp.get('dob').hasError('required') &&
+                formGrp.get('dob').touched
+              "
+              >This field is required</mat-error
+            >
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <br />
+
+          <mat-form-field appearance="fill">
+            <mat-label>Select gender</mat-label>
+            <mat-select formControlName="gender">
+              <mat-option value="male">Male</mat-option>
+              <mat-option value="female">Female</mat-option>
+              <mat-option value="others">Others</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formGrp.get('gender').hasError('required')"
+              >This field is required</mat-error
+            >
+          </mat-form-field>
+          <div class="mt-1">
+            <input
+              (input)="onInput($event)"
+              formControlName="pic"
+              id="pic"
+              type="file"
+              style="display: none"
+            />
+            <label for="pic" class="btn btn-primary"
+              ><mat-icon class="mt-2">upload</mat-icon>
+              <p class="mb-2">Upload profile picture</p></label
+            >
+            <mat-error
+              *ngIf="
+                formGrp.get('pic').hasError('required') &&
+                formGrp.get('pic').dirty
+              "
+              >This field is required</mat-error
+            >
+          </div>
+          <div *ngIf="dataUrl" style="width: 200px" class="py-2">
+            <img class="img-fluid" [src]="dataUrl" />
+          </div>
+        </mat-card-content>
+        <button
+          [disabled]="formGrp.invalid"
+          type="submit"
+          mat-raised-button
+          color="warn"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </mat-card>
+</div>

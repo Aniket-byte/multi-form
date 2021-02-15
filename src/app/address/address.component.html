@@ -1,0 +1,158 @@
+<div class="p-4">
+  <form [formGroup]="formGrp" (ngSubmit)="onSubmit()">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6" formGroupName="cAddress">
+          <mat-card class="p-md-5 bg-light">
+            <h1>Current Address</h1>
+
+            <mat-form-field style="width: 100%">
+              <input formControlName="line1" matInput placeholder="Line 1" />
+              <mat-error
+                *ngIf="formGrp.get('cAddress.line1').hasError('required')"
+                >This field is required</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%">
+              <input formControlName="line2" matInput placeholder="Line 2" />
+              <mat-hint align="end">Optional</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%">
+              <input formControlName="area" matInput placeholder="Area" />
+              <mat-error
+                *ngIf="formGrp.get('cAddress.area').hasError('required')"
+                >This field is required</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%">
+              <input formControlName="city" matInput placeholder="City" />
+              <mat-error
+                *ngIf="formGrp.get('cAddress.city').hasError('required')"
+                >This field is required</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%">
+              <input formControlName="state" matInput placeholder="State" />
+              <mat-error
+                *ngIf="formGrp.get('cAddress.state').hasError('required')"
+                >This field is required</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%">
+              <input
+                matInput
+                [errorStateMatcher]="matcher"
+                formControlName="pincode"
+                placeholder="Pincode"
+              />
+              <mat-error
+                *ngIf="formGrp.get('cAddress.pincode').hasError('required')"
+                >This field is required</mat-error
+              >
+              <mat-error
+                *ngIf="formGrp.get('cAddress.pincode').hasError('invalidPin')"
+                >Invalid pincode</mat-error
+              >
+            </mat-form-field>
+          </mat-card>
+        </div>
+        <div class="col-md-6 mt-md-0 mt-3" formGroupName="pAddress">
+          <mat-card class="p-md-5 bg-light">
+            <h1>Permanent Address</h1>
+
+            <mat-form-field style="width: 100%">
+              <input formControlName="line1" matInput placeholder="Line 1" />
+              <mat-error
+                *ngIf="
+                  formGrp.get('pAddress.line1').hasError('required') &&
+                  !sameAddress
+                "
+                >This field is required</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%">
+              <input formControlName="line2" matInput placeholder="Line 2" />
+              <mat-hint align="end">Optional</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%">
+              <input formControlName="area" matInput placeholder="Area" />
+              <mat-error
+                *ngIf="
+                  formGrp.get('pAddress.area').hasError('required') &&
+                  !sameAddress
+                "
+                >This field is required</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%">
+              <input formControlName="city" matInput placeholder="City" />
+              <mat-error
+                *ngIf="
+                  formGrp.get('pAddress.city').hasError('required') &&
+                  !sameAddress
+                "
+                >This field is required</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%">
+              <input formControlName="state" matInput placeholder="State" />
+              <mat-error
+                *ngIf="
+                  formGrp.get('pAddress.state').hasError('required') &&
+                  !sameAddress
+                "
+                >This field is required</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%">
+              <input
+                [errorStateMatcher]="matcher"
+                matInput
+                formControlName="pincode"
+                placeholder="Pincode"
+              />
+              <mat-error
+                *ngIf="formGrp.get('pAddress.pincode').hasError('invalidPin')"
+                >Invalid pincode</mat-error
+              >
+              <mat-error
+                *ngIf="
+                  formGrp.get('pAddress.pincode').hasError('required') &&
+                  !sameAddress
+                "
+                >This field is required</mat-error
+              >
+            </mat-form-field>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <mat-checkbox
+        [disabled]="formGrp.get('cAddress').invalid"
+        (change)="onClick()"
+        color="warn"
+        class="mb-4"
+        >Permanent address same as Current Address</mat-checkbox
+      ><br />
+      <button
+        [disabled]="formGrp.invalid"
+        type="submit"
+        mat-raised-button
+        color="warn"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,11 @@
+<mat-tab-group
+  (selectedTabChange)="tabChanged($event)"
+  [selectedIndex]="currentPage"
+>
+  <mat-tab label="Personal"> <app-personal></app-personal> </mat-tab>
+  <mat-tab label="Address"> <app-address></app-address> </mat-tab>
+  <mat-tab label="Professional">
+    <app-professional></app-professional>
+  </mat-tab>
+  <mat-tab label="Decalaration"> <app-declaration></app-declaration> </mat-tab>
+</mat-tab-group>
