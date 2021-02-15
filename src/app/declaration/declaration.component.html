@@ -1,4 +1,4 @@
-<div class="p-4">
+<div class="p-4" id="printSection">
   <mat-card class="bg-light" *ngIf="displayData; else noData">
     <mat-card-title class="text-center my-4"> Your Resume </mat-card-title>
     <mat-card-content *ngIf="displayData['step-1']">
@@ -149,14 +149,22 @@
       </mat-card>
     </mat-card-content>
   </mat-card>
-  <div class="text-center mt-2" *ngIf="allDone()">
-    <mat-checkbox color="primary" style="width: 100%" (change)="onAggree()"
-      >I thereby declare that the above information in correct</mat-checkbox
-    >
-    <button [disabled]="!aggreed" class="my-2" mat-raised-button color="warn">
-      Submit
-    </button>
-  </div>
+</div>
+<div class="text-center mt-2 p-4" *ngIf="allDone()">
+  <mat-checkbox color="primary" style="width: 100%" (change)="onAggree()"
+    >I thereby declare that the above information in correct</mat-checkbox
+  >
+  <button
+    ngxPrint
+    [useExistingCss]="true"
+    printSectionId="printSection"
+    [disabled]="!aggreed"
+    class="my-2"
+    mat-raised-button
+    color="warn"
+  >
+    Print
+  </button>
 </div>
 
 <ng-template #noData>

@@ -70,15 +70,18 @@ export class AddressComponent implements OnInit, OnDestroy {
   }
   onClick() {
     this.sameAddress = !this.sameAddress;
+    let pAddresInput = this.formGrp.get('pAddress');
     if (this.sameAddress) {
-      this.formGrp.get('pAddress').setValue(this.formGrp.get('cAddress').value);
+      pAddresInput.disable();
+      pAddresInput.setValue(this.formGrp.get('cAddress').value);
       this.formSubs = this.formGrp
         .get('cAddress')
         .valueChanges.subscribe((value) => {
-          this.formGrp.get('pAddress').setValue(value);
+          pAddresInput.setValue(value);
         });
     } else {
-      this.formGrp.get('pAddress').reset();
+      pAddresInput.reset();
+      pAddresInput.enable();
       this.formSubs.unsubscribe();
     }
   }

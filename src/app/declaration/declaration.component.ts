@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { FormData, FormService } from '../shared/form-service';
 import { Subscription } from 'rxjs';
 
@@ -13,6 +19,7 @@ export class DeclarationComponent implements OnInit, OnDestroy {
   uiSubs: Subscription;
   displayData: FormData;
   imageUrl: string;
+  @ViewChild('printSection') printSection: ElementRef;
   constructor(private formService: FormService) {}
 
   ngOnInit(): void {
@@ -46,6 +53,11 @@ export class DeclarationComponent implements OnInit, OnDestroy {
       return allDone;
     }
     return false;
+  }
+  onPrint() {
+    const mywindow = window.open('', 'PRINT', 'width=1023,height=1000');
+    console.log(this.printSection.nativeElement.toString());
+    mywindow.document.write(this.printSection.nativeElement.toString());
   }
   ngOnDestroy(): void {
     this.uiSubs.unsubscribe();

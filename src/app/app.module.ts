@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxPrintModule } from 'ngx-print';
 
 // @angular/material
 import { MatInputModule } from '@angular/material/input';
@@ -47,6 +48,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatNativeDateModule,
     MatCheckboxModule,
     MatChipsModule,
+    NgxPrintModule,
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent],
